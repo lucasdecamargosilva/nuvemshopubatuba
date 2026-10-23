@@ -1014,7 +1014,8 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
         openBtn.innerHTML = stampImageHTML;
 
 
-        const imgContainers = ['.product-image-container', '.js-product-slide', '.product-image-column', '.js-swiper-product', '[data-store^="product-image-"]', '.product__media-wrapper', '.product-gallery__media', '.product__media', '.product-image-main', '.product-media-container', '[data-media-id]', '.product__media-item', '.product-gallery', '.product-single__media', '.media-gallery'];
+        // 23/10/2026: o selo vai na MOLDURA do carrossel (fixa), não num slide — senão some ao trocar de foto
+        const imgContainers = ['.js-product-slider', '.product-images-slider', '.product-image-container', '.js-product-slide', '.product-image-column', '.js-swiper-product', '[data-store^="product-image-"]', '.product__media-wrapper', '.product-gallery__media', '.product__media', '.product-image-main', '.product-media-container', '[data-media-id]', '.product__media-item', '.product-gallery', '.product-single__media', '.media-gallery'];
 
         function tryPlaceTriggerBtn() {
             // 1ª prioridade: container que tenha <img> dentro (evita cair em slide de vídeo)
