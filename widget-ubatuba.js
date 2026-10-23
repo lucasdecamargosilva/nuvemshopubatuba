@@ -1162,7 +1162,7 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
             imp('font-family', cs ? cs.fontFamily : 'inherit'); imp('font-size', cs ? cs.fontSize : '15px');
             imp('font-weight', cs ? cs.fontWeight : '800'); imp('letter-spacing', cs ? cs.letterSpacing : '.02em');
             imp('text-transform', 'uppercase'); imp('opacity', '1'); imp('cursor', 'pointer');
-            btn.querySelectorAll('svg, i, img').forEach(el => { el.style.color = 'inherit'; el.style.fill = 'currentColor'; });
+            btn.querySelectorAll('*').forEach(el => { el.style.setProperty('color', cor, 'important'); el.style.setProperty('fill', 'currentColor', 'important'); });
             if (!window.__plUbaResize) { window.__plUbaResize = 1; window.addEventListener('resize', () => plVisualUbatuba(btn));
                 setTimeout(() => plVisualUbatuba(btn), 1500); setTimeout(() => plVisualUbatuba(btn), 4000); }   // o app de lentes carrega depois
         }
