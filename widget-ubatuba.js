@@ -1137,12 +1137,28 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
                 btn.querySelectorAll('svg, i, img').forEach(el => { el.style.color = 'inherit'; el.style.fill = 'currentColor'; });
             } catch (e) {}
         }
+        // Ubatuba (23/10/2026, Lucas): botão como era na Tray — largura total, contorno escuro, ABAIXO do formulário
+        // inteiro (depois do "Escolher lentes e comprar"), não colado no Comprar.
+        function plVisualUbatuba(btn) {
+            const imp = (k, v) => btn.style.setProperty(k, v, 'important');
+            imp('display', 'flex'); imp('align-items', 'center'); imp('justify-content', 'center'); imp('gap', '8px');
+            imp('width', '100%'); imp('height', '42px'); imp('min-height', '42px'); imp('margin', '18px 0 6px'); imp('padding', '0 16px');
+            imp('background', 'transparent'); imp('background-image', 'none'); imp('color', '#111'); imp('border', '1px solid #111');
+            imp('border-radius', '4px'); imp('box-shadow', 'none'); imp('font-size', '11px'); imp('font-weight', '700');
+            imp('letter-spacing', '.14em'); imp('text-transform', 'uppercase'); imp('opacity', '1');
+            btn.querySelectorAll('svg, i, img').forEach(el => { el.style.color = 'inherit'; el.style.fill = 'currentColor'; });
+        }
         function plPoeAbaixoDoComprar() {
+            const form = document.querySelector('form.js-product-form, #product_form');
+            if (form && form.parentNode) {
+                if (!inlineBtn.isConnected || inlineBtn.previousElementSibling !== form) form.parentNode.insertBefore(inlineBtn, form.nextSibling);
+                plVisualUbatuba(inlineBtn);
+                return true;
+            }
             const buy = document.querySelector('.js-addtocart:not(.js-addtocart-placeholder-btn)');
             if (!buy || !buy.parentNode) return false;
             if (!inlineBtn.isConnected) buy.parentNode.insertBefore(inlineBtn, buy.nextSibling);
-            plCopiaVisualComprar(inlineBtn, buy);
-            if (!window.__plAlkResize) { window.__plAlkResize = 1; window.addEventListener('resize', () => plCopiaVisualComprar(inlineBtn, buy)); }
+            plVisualUbatuba(inlineBtn);
             return true;
         }
         function placeInlineBtn() {
