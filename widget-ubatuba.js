@@ -1139,14 +1139,32 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
         }
         // Ubatuba (23/10/2026, Lucas): botão como era na Tray — largura total, contorno escuro, ABAIXO do formulário
         // inteiro (depois do "Escolher lentes e comprar"), não colado no Comprar.
+        // Visual (23/10/2026, Lucas): igual ao botão "Escolher lentes e comprar" da loja, mas SEM fundo —
+        // contorno e texto na cor dele, mesmo raio, altura, fonte e largura. Lê o botão na página; sem ele, usa o rosa da loja.
+        function plBotaoLentes() {
+            const els = document.querySelectorAll('button, a, div[role="button"], input[type="submit"], input[type="button"]');
+            for (const e of els) { if (e === inlineBtn || e.closest('#q-modal-ia')) continue;
+                if (/escolher lentes/i.test(e.textContent || e.value || '') && e.offsetParent !== null) return e; }
+            return null;
+        }
         function plVisualUbatuba(btn) {
             const imp = (k, v) => btn.style.setProperty(k, v, 'important');
-            imp('display', 'flex'); imp('align-items', 'center'); imp('justify-content', 'center'); imp('gap', '8px');
-            imp('width', '100%'); imp('height', '42px'); imp('min-height', '42px'); imp('margin', '18px 0 6px'); imp('padding', '0 16px');
-            imp('background', 'transparent'); imp('background-image', 'none'); imp('color', '#111'); imp('border', '1px solid #111');
-            imp('border-radius', '4px'); imp('box-shadow', 'none'); imp('font-size', '11px'); imp('font-weight', '700');
-            imp('letter-spacing', '.14em'); imp('text-transform', 'uppercase'); imp('opacity', '1');
+            const ref = plBotaoLentes(), cs = ref ? getComputedStyle(ref) : null;
+            const cor = cs && cs.backgroundColor && cs.backgroundColor !== 'rgba(0, 0, 0, 0)' ? cs.backgroundColor : '#dfaeb1';
+            imp('display', 'flex'); imp('align-items', 'center'); imp('justify-content', 'center'); imp('gap', '10px');
+            imp('box-sizing', 'border-box'); imp('padding', '0 22px');
+            imp('width', ref ? ref.getBoundingClientRect().width + 'px' : '100%'); imp('max-width', '100%');
+            imp('height', ref ? ref.offsetHeight + 'px' : '56px'); imp('min-height', ref ? ref.offsetHeight + 'px' : '56px');
+            imp('margin', '14px 0 6px');
+            imp('background', 'transparent'); imp('background-image', 'none'); imp('box-shadow', 'none');
+            imp('border', '2px solid ' + cor); imp('color', cor);
+            imp('border-radius', cs ? cs.borderRadius : '8px');
+            imp('font-family', cs ? cs.fontFamily : 'inherit'); imp('font-size', cs ? cs.fontSize : '15px');
+            imp('font-weight', cs ? cs.fontWeight : '800'); imp('letter-spacing', cs ? cs.letterSpacing : '.02em');
+            imp('text-transform', 'uppercase'); imp('opacity', '1'); imp('cursor', 'pointer');
             btn.querySelectorAll('svg, i, img').forEach(el => { el.style.color = 'inherit'; el.style.fill = 'currentColor'; });
+            if (!window.__plUbaResize) { window.__plUbaResize = 1; window.addEventListener('resize', () => plVisualUbatuba(btn));
+                setTimeout(() => plVisualUbatuba(btn), 1500); setTimeout(() => plVisualUbatuba(btn), 4000); }   // o app de lentes carrega depois
         }
         function plPoeAbaixoDoComprar() {
             const form = document.querySelector('form.js-product-form, #product_form');
