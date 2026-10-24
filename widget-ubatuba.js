@@ -1086,6 +1086,24 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
         const inlineBtnText = document.createTextNode('Provador Virtual');
         inlineBtn.appendChild(inlineBtnText);
 
+        // Mesmo tamanho do botão "Escolher lentes e comprar" (pedido do Lucas, 24/10/2026). O de lentes é injetado
+        // depois pelo fluxo de lentes, então acompanha por alguns segundos e a cada mudança de tamanho da tela.
+        (function plMesmoTamanhoLentes() {
+            function sync() {
+                var l = document.querySelector('.btn-lente-ideal-injetado');
+                if (!l || !inlineBtn.isConnected || !l.offsetParent) return false;
+                var r = l.getBoundingClientRect();
+                if (!r.width) return false;
+                inlineBtn.style.setProperty('width', Math.round(r.width) + 'px', 'important');
+                inlineBtn.style.setProperty('max-width', '100%', 'important');
+                inlineBtn.style.setProperty('height', Math.round(r.height) + 'px', 'important');
+                inlineBtn.style.setProperty('box-sizing', 'border-box', 'important');
+                return true;
+            }
+            var n = 0, t = setInterval(function () { sync(); if (++n > 40) clearInterval(t); }, 250);
+            window.addEventListener('resize', sync);
+        })();
+
         inlineBtn.addEventListener('click', (e) => {
             window.__plBtnSrc = 'carrinho';
             e.preventDefault();
