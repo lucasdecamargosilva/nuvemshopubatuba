@@ -50,13 +50,29 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
     // Produtos com fotos de referência FIXAS (pedido da loja): manda sempre estas, nesta ordem
     // (a 1ª é a referência principal), no lugar das fotos da galeria. Casa pelo nome (h1) ou pela URL.
     var PL_REF_FIXAS = [
-        // 17/10/2026: a regra antiga casava QUALQUER "Balgriff ... Dourad" (LQ50056, 85019, 9001...) e mandava as fotos da ZR6027
-        // para todos — a prova saía com a mesma armação. Agora exige ZR6027 E dourad juntos (nome ou endereço).
+        // 24/10/2026 (Lucas): fotos FIXAS só no rosto e com LENTE TRANSPARENTE (escolhidas a dedo na galeria da Nuvemshop).
+        // A galeria nova mistura arte de "feedback", "como medir seus óculos" e fotos com o clip solar — o gerador
+        // copiava cor/forma dessas imagens. A 1ª é a referência principal.
+        // ZR6027 dourado: exige ZR6027 E dourad juntos (a regra antiga casava qualquer Balgriff dourado — 17/10).
         { nome: /^(?=[\s\S]*ZR6027)(?=[\s\S]*DOURAD)/i, url: /^(?=.*zr6027)(?=.*dourad)/i, fotos: [
-            'https://images.tcdn.com.br/img/img_prod/927097/armao_balgriff_2_em_1_dourado_zr6027_1_20260121113604_b9aad56282a9.jpeg',
-            'https://images.tcdn.com.br/img/img_prod/927097/armao_balgriff_2_em_1_dourado_zr6027_1_20251014155800_643b9a7412e4.jpeg',
-            'https://images.tcdn.com.br/img/img_prod/927097/armao_balgriff_2_em_1_dourado_zr6027_13_20260923122935_35d442f8cc4d.jpg',
-            'https://images.tcdn.com.br/img/img_prod/927097/armao_balgriff_2_em_1_dourado_zr6027_12_20260923122935_e699fb7256eb.jpg'
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/zr6027-dourado-10-33bd60e54900a51cb417923402332566-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/zr6027-dourado-9-ff0bd41fd0f96a129c17923402269392-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/zr6027-dourado-5-c45bf30396bb79b52117923402028547-1024-1024.webp'
+        ] },
+        { nome: /GATINHO\s+DOURADO\s*-\s*CRISTAL/i, url: /armacao-gatinho-dourado-cristal/i, fotos: [
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/cristal-dourado-6-2f09b22451b569330e17923409144331-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/cristal-dourado-2-eacbcb143162cfcb8917923408680815-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/cristal-dourado-9-79fd186500bd32601617923409353055-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/armacao_gatinho_dourado_cristal_395_3_f08b8730e250906f6ae0bfb56db755f5-jpg-0372485216ae1eec2417919930070683-1024-1024.webp'
+        ] },
+        { nome: /C0267/i, url: /c0267/i, fotos: [
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/01-principal-6fd95144e58f8e642117923367340574-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/03-imagem-3-67982e7bc41e1e6d6917923367336007-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/02-imagem-2-c7d2e9caae5b26e58217923367336000-1024-1024.webp'
+        ] },
+        { nome: /LQC3808/i, url: /lqc3808/i, fotos: [
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/lqc3808-rose-1-868068b54bda28c05317923404564747-1024-1024.webp',
+            'https://dcdn-us.mitiendanube.com/stores/008/359/687/products/lqc3808-rose-2-c7e967723d3ba5fbef17923405076680-1024-1024.webp'
         ] }
     ];
 
